@@ -100,13 +100,10 @@ def singLogin():
         sleep(2.0)
         print("走这里A")
         touch(Template(r"tpl1637630497667.png", record_pos=(-0.394, -0.039), resolution=(1080, 1920)))
-        sleep(4.0)
-        touch(Template(r"tpl1638419038274.png", record_pos=(-0.001, 0.475), resolution=(1080, 1920)))
-
+        sleep(6.0)
+        touch(Template(r"tpl1638419038274.png", rgb=True, record_pos=(-0.001, 0.475), resolution=(1080, 1920)))
 
         sleep(10.0)
-    
-
         successLogin = exists(Template(r"tpl1637736110253.png", record_pos=(-0.005, -0.081), resolution=(1080, 1920)))
 
         if successLogin :
@@ -125,7 +122,72 @@ def singLogin():
     else:
         touch(Template(r"tpl1636943434521.png", record_pos=(0.403, 0.855), resolution=(1080, 1920)))
         sleep(5.0)
-        print("走这里d，页面加载失败")       
+        print("走这里d，页面加载失败")           
+#储值>>>>>>>>>>>>>>>>>>>>>>
+def storedValue():
+    touch(Template(r"tpl1638497129246.png", record_pos=(-0.336, -0.283), resolution=(1080, 1920)))
+    sleep(5.0)
+    OtherAmount =exists(Template(r"tpl1638497333928.png", record_pos=(-0.319, 0.371), resolution=(1080, 1920)))
+    if OtherAmount:
+        assert_exists(Template(r"tpl1638497365587.png", record_pos=(-0.323, 0.362), resolution=(1080, 1920)), "储值详情加载成功")
+        touch(Template(r"tpl1638499921969.png", record_pos=(-0.32, 0.162), resolution=(1080, 1920)))
+        touch(Template(r"tpl1638499932557.png", record_pos=(0.014, 0.815), resolution=(1080, 1920)))
+        tanChuang =exists(Template(r"tpl1638499972445.png", record_pos=(0.006, -0.098), resolution=(1080, 1920)))
+        if tanChuang:
+            touch(Template(r"tpl1638499991041.png", record_pos=(0.236, 0.19), resolution=(1080, 1920)))
+            sleep(5.0)
+            if assert_exists(Template(r"tpl1638500237356.png", record_pos=(0.013, -0.481), resolution=(1080, 1920)), "唤起支付成功，储值成功"):
+                touch(Template(r"tpl1638500292275.png", record_pos=(-0.323, -0.543), resolution=(1080, 1920)))
+                sleep(2.0)
+
+            else:
+                assert_not_exists(Template(r"tpl1638500263542.png", record_pos=(0.02, -0.475), resolution=(1080, 1920)), "唤起支付失败")      
+        else:
+            sleep(4.0)
+            if assert_exists(Template(r"tpl1638500237356.png", record_pos=(0.013, -0.481), resolution=(1080, 1920)), "唤起支付成功，储值成功"):
+                touch(Template(r"tpl1638500292275.png", record_pos=(-0.323, -0.543), resolution=(1080, 1920)))
+
+            else:
+                assert_not_exists(Template(r"tpl1638500263542.png", record_pos=(0.02, -0.475), resolution=(1080, 1920)), "唤起支付失败")
+        touch(Template(r"tpl1638498330827.png", record_pos=(-0.349, -0.392), resolution=(1080, 1920)))
+        sleep(4.0)
+
+        huiyuanma = exists(Template(r"tpl1638502676215.png", record_pos=(0.009, 0.223), resolution=(1080, 1920)))
+        if huiyuanma:
+            
+            assert_exists(Template(r"tpl1638502698534.png", record_pos=(-0.001, 0.219), resolution=(1080, 1920)), "会员码加载成功")
+            assert_exists(Template(r"tpl1637117678191.png", record_pos=(0.011, -0.272), resolution=(1080, 1920)), "会员卡号加载成功")
+            touch(Template(r"tpl1638498666762.png", record_pos=(-0.443, -0.767), resolution=(1080, 1920)))
+            sleep(2.0)
+                  
+        else:
+            assert_not_exists(Template(r"tpl1638498503248.png", record_pos=(-0.005, 0.226), resolution=(1080, 1920)), "会员码加载失败")
+
+            print("不通过")  
+            keyevent("BACK") 
+            sleep(1)      
+        touch(Template(r"tpl1638498965691.png", record_pos=(0.331, -0.39), resolution=(1080, 1920)))
+        sleep(2.0)
+        record= exists(Template(r"tpl1638499386727.png", record_pos=(0.007, 0.092), resolution=(1080, 1920)))
+        if record:
+            assert_exists(Template(r"tpl1638499448217.png", record_pos=(-0.003, 0.093), resolution=(1080, 1920)), "暂无储值记录")
+        else:
+            assert_exists(Template(r"tpl1638499692962.png", record_pos=(-0.409, -0.514), resolution=(1080, 1920)), "储值记录加载成功")
+            keyevent("BACK")
+            sleep(3.0)
+        touch(Template(r"tpl1638499789460.png", record_pos=(-0.265, -0.645), resolution=(1080, 1920)))
+        sleep(5.0)
+        valueJilu = exists(Template(r"tpl1638511180719.png", record_pos=(0.374, -0.561), resolution=(1080, 1920)))
+        if valueJilu:
+            assert_exists(Template(r"tpl1638512980660.png", record_pos=(0.368, -0.559), resolution=(1080, 1920)), "交易明细页加载成功")
+
+            black(2)
+        else:
+            assert_not_exists(Template(r"tpl1638513001757.png", record_pos=(0.371, -0.314), resolution=(1080, 1920)), "交易明细页加载失败")
+            keyevent("BACK")
+    else:
+        assert_not_exists(Template(r"tpl1638497951812.png", rgb=True, record_pos=(-0.324, 0.365), resolution=(1080, 1920)), "储值详情页加载失败")
+        keyevent("BACK")
 #拼团case>>>>>>>>>>>>>>>>>
 def pingTuan():
     slide(4)
@@ -157,6 +219,10 @@ def pingTuan():
                         sleep(2.0)
                         touch(Template(r"tpl1638415527175.png", record_pos=(-0.002, 0.165), resolution=(1080, 1920)))
                         black(3)
+                        sleep(2.0)
+                        touch(Template(r"tpl1638501208179.png", record_pos=(0.406, 0.852), resolution=(1080, 1920)))
+                        sleep(4.0)
+
                     else:
                         assert_not_exists(Template(r"tpl1638415414270.png", record_pos=(0.004, -0.48), resolution=(1080, 1920)), "唤起支付失败")
                         black(3)
@@ -249,6 +315,8 @@ total()
 singLogin()
 #拼团case>>>>>>>>>>>>>>>>>
 pingTuan()
+#储值>>>>>>>>>>>>>>>>>>>>>>
+storedValue()
 #首页case>>>>>>>>>>>>>>>>>
 homePage()
 #加入购物车case>>>>>>>>>>>
