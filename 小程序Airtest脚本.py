@@ -75,9 +75,6 @@ def memberCode():
     sleep(1)
 #     text1 = pytesseract.image_to_string(Image.open(r'C:\Users\Administrator\Desktop\小程序.air\tpl1637117678191.png'))
 #     print(text1)
-
-
-    
     assert_exists(Template(r"tpl1637117678191.png", record_pos=(0.011, -0.272), resolution=(1080, 1920)), "会员卡号加载成功")
     touch(Template(r"tpl1636943601264.png", record_pos=(-0.439, -0.765), resolution=(1080, 1920)))
     sleep(1)
@@ -117,8 +114,7 @@ def singLogin():
         else:
             print("走这里c")
             assert_exists(Template(r"tpl1637633095863.png", record_pos=(-0.272, -0.295), resolution=(1080, 1920)), "签到成功&今天已签到")
-            black(2)
-                
+            black(2)                
     else:
         touch(Template(r"tpl1636943434521.png", record_pos=(0.403, 0.855), resolution=(1080, 1920)))
         sleep(5.0)
@@ -134,6 +130,8 @@ def storedValue():
         touch(Template(r"tpl1638499932557.png", record_pos=(0.014, 0.815), resolution=(1080, 1920)))
         tanChuang =exists(Template(r"tpl1638499972445.png", record_pos=(0.006, -0.098), resolution=(1080, 1920)))
         if tanChuang:
+            sleep(2.0)
+            
             touch(Template(r"tpl1638499991041.png", record_pos=(0.236, 0.19), resolution=(1080, 1920)))
             sleep(5.0)
             if assert_exists(Template(r"tpl1638500237356.png", record_pos=(0.013, -0.481), resolution=(1080, 1920)), "唤起支付成功，储值成功"):
@@ -167,7 +165,7 @@ def storedValue():
             keyevent("BACK") 
             sleep(1)      
         touch(Template(r"tpl1638498965691.png", record_pos=(0.331, -0.39), resolution=(1080, 1920)))
-        sleep(2.0)
+        sleep(4.0)
         record= exists(Template(r"tpl1638499386727.png", record_pos=(0.007, 0.092), resolution=(1080, 1920)))
         if record:
             assert_exists(Template(r"tpl1638499448217.png", record_pos=(-0.003, 0.093), resolution=(1080, 1920)), "暂无储值记录")
@@ -182,12 +180,84 @@ def storedValue():
             assert_exists(Template(r"tpl1638512980660.png", record_pos=(0.368, -0.559), resolution=(1080, 1920)), "交易明细页加载成功")
 
             black(2)
+            sleep(2.0)
         else:
             assert_not_exists(Template(r"tpl1638513001757.png", record_pos=(0.371, -0.314), resolution=(1080, 1920)), "交易明细页加载失败")
             keyevent("BACK")
     else:
         assert_not_exists(Template(r"tpl1638497951812.png", rgb=True, record_pos=(-0.324, 0.365), resolution=(1080, 1920)), "储值详情页加载失败")
         keyevent("BACK")
+#卡券包<<<<<<<<<<<<<<<<<<<<
+def card():
+    touch(Template(r"tpl1638755061580.png", record_pos=(0.281, -0.283), resolution=(1080, 1920)))
+    sleep(2.0)
+    ToUse = exists(Template(r"tpl1638755127314.png", record_pos=(0.392, -0.241), resolution=(1080, 1920)))
+    if ToUse:
+        assert_exists(Template(r"tpl1638755170329.png", record_pos=(0.392, -0.242), resolution=(1080, 1920)), "优惠券门店列表数据加载成功")
+        touch(Template(r"tpl1638755206620.png", record_pos=(0.393, -0.244), resolution=(1080, 1920)))
+        sleep(2.0)
+        quanMan = exists(Template(r"tpl1638755464593.png", record_pos=(-0.01, -0.114), resolution=(1080, 1920)))
+        if quanMan:
+            assert_exists(Template(r"tpl1638755492781.png", record_pos=(0.008, -0.117), resolution=(1080, 1920)), "去使用券码详情加载成功")
+            keyevent("BACK")
+            sleep(2.0)
+            touch(Template(r"tpl1638755807967.png", record_pos=(-0.159, -0.519), resolution=(1080, 1920)))
+            sleep(3.0)
+            if ToUse:
+                assert_exists(Template(r"tpl1638755871740.png", record_pos=(0.395, -0.238), resolution=(1080, 1920)), "优惠券门店列表数据加载成功")
+                touch(Template(r"tpl1638755992587.png", record_pos=(0.393, -0.241), resolution=(1080, 1920)))
+                sleep(3.0)
+                manJan = exists(Template(r"tpl1638756087776.png", record_pos=(-0.161, -0.376), resolution=(1080, 1920)))
+                if manJan:
+                    assert_exists(Template(r"tpl1638756108130.png", record_pos=(-0.171, -0.382), resolution=(1080, 1920)), "去使用页面跳转加载成功")
+                    keyevent("BACK")
+                    
+                else:
+                    assert_not_exists(Template(r"tpl1638756142009.png", record_pos=(-0.175, -0.381), resolution=(1080, 1920)), "去使用页面跳转加载失败")
+            else:
+                assert_not_exists(Template(r"tpl1638755908762.png", record_pos=(0.387, -0.242), resolution=(1080, 1920)), "暂无优惠券/优惠券门店列表数据加载失败")            
+        else:
+            assert_not_exists(Template(r"tpl1638755538066.png", record_pos=(0.006, -0.11), resolution=(1080, 1920)), "去使用券码详情加载失败")
+    else:
+        assert_not_exists(Template(r"tpl1638755307504.png", record_pos=(0.392, -0.241), resolution=(1080, 1920)), "暂无优惠券/优惠券门店列表数据加载失败")
+        keyevent("BACK")
+    touch(Template(r"tpl1638756256342.png", record_pos=(-0.014, -0.65), resolution=(1080, 1920)))
+    sleep(4.0)
+    zanWuka = exists(Template(r"tpl1638756327885.png", record_pos=(0.007, 0.032), resolution=(1080, 1920)))
+    if zanWuka:
+        assert_exists(Template(r"tpl1638756353131.png", record_pos=(-0.007, 0.029), resolution=(1080, 1920)), "暂无礼品卡去挑选，页面加载成功")
+        touch(Template(r"tpl1638756478120.png", record_pos=(0.009, 0.117), resolution=(1080, 1920)))
+        sleep(3.0)
+        cardSuccess = exists(Template(r"tpl1638757350524.png", record_pos=(0.002, 0.105), resolution=(1080, 1920)))
+        if cardSuccess:
+            assert_exists(Template(r"tpl1638757366402.png", record_pos=(0.006, 0.1), resolution=(1080, 1920)), "礼品卡首页加载成功")
+            keyevent("BACK")
+            sleep(2.0)
+        else:
+            assert_not_exists(Template(r"tpl1638757398263.png", record_pos=(-0.005, 0.101), resolution=(1080, 1920)), "礼品卡首页加载失败")
+            keyevent("BACK")      
+    else:
+        print("礼品卡页面加载成功/暂无礼品卡")
+        
+    touch(Template(r"tpl1638757761383.png", record_pos=(0.306, -0.659), resolution=(1080, 1920)))
+    sleep(3.0)
+    zawuQuanyi = exists(Template(r"tpl1638757786617.png", record_pos=(0.006, 0.029), resolution=(1080, 1920)))
+    if zawuQuanyi:
+        sleep(2.0)
+        assert_exists(Template(r"tpl1638757805885.png", record_pos=(0.017, 0.034), resolution=(1080, 1920)), "暂无权益卡/权益卡页面加载失败")
+        touch(Template(r"tpl1638757910940.png", record_pos=(-0.006, 0.112), resolution=(1080, 1920)))
+        sleep(4.0)
+        kaitong = exists(Template(r"tpl1638758357149.png", record_pos=(0.177, 0.821), resolution=(1080, 1920)))
+
+        if kaitong:
+            assert_exists(Template(r"tpl1638758378874.png", record_pos=(0.163, 0.814), resolution=(1080, 1920)), "特券卡购买页,加载成功 ")
+            black(2)
+            sleep(3.0)
+        else:
+            assert_not_exists(Template(r"tpl1638757979329.png", record_pos=(0.181, 0.815), resolution=(1080, 1920)), "特券卡购买页,加载失败")
+            black(2)
+    else:
+        print("权益卡页面展示")      
 #拼团case>>>>>>>>>>>>>>>>>
 def pingTuan():
     slide(4)
@@ -251,7 +321,6 @@ def homePage():
     randoms = random.randint(13,14)
     slide(randoms)
     assert_exists(Template(r"tpl1638418394461.png", rgb=True, record_pos=(-0.082, 0.047), resolution=(1080, 1920)), "首页加载成功")
-
 #加入商品购物车case>>>>>>>>
 def addShopping():
     #购物车是否存在
@@ -311,12 +380,14 @@ EnterApplets()
 memberCode()    
 #积分case<<<<<<<<<<<<<<<<<
 total()
+#储值>>>>>>>>>>>>>>>>>>>>>
+storedValue()
+#卡券包>>>>>>>>>>>>>>>>>>>
+card()
 #签到Case>>>>>>>>>>>>>>>>>
 singLogin()
 #拼团case>>>>>>>>>>>>>>>>>
 pingTuan()
-#储值>>>>>>>>>>>>>>>>>>>>>>
-storedValue()
 #首页case>>>>>>>>>>>>>>>>>
 homePage()
 #加入购物车case>>>>>>>>>>>
@@ -324,6 +395,7 @@ addShopping()
 # 关闭小程序>>>>>>>>>>>>>>
 closeApplets()
 # poco(text="微信").click()
+
 
 
 
